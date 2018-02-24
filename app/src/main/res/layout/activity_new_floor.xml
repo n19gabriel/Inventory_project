@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.gabriel.inventory_project.Inventory_pg.floor.NewFloor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/et_flor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:background="@android:color/transparent"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:hint="@string/name_floor"
+        android:textColor="@color/icons"
+        android:maxLines="1"
+        android:layout_marginTop="70dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <Button
+        android:id="@+id/add_floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/accent"
+        android:text="@string/add_object"
+        android:textColor="@color/icons"
+        android:padding="16dp"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"/>
+</LinearLayout>

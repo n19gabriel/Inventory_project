@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="email">Email</string>
+    <string name="password">.......</string>
+    <string name="log_in">Log in</string>
+    <string name="registration">Registration</string>
+    <string name="fo_get_pas">Forget your Password? </string>
+    <string name="name_office">Name office</string>
+    <string name="name_floor">Name floor</string>
+    <string name="name_room">Name room</string>
+    <string name="name_thing">Name </string>
+    <string name="location">Location</string>
+    <string name="add_object">Add</string>
+    <string name="type">Type</string>
+    <string name="date_of_add">Date of add</string>
+    <string name="date_of_delete">Date of delete</string>
+    <string name="set_image">Set image</string>
+    <string name="remember_me">Remember me</string>
+    <string name="list">List</string>
+    <string name="history">History</string>
+    <string name="search">Search</string>
+    <string name="scanner">Scanner</string>
+    <string name="log_aut">Log aut</string>
+    <string name="progect_name">Inventory manager</string>
+    <string name="delete">Delete</string>
+    <string name="refract">Refract</string>
+    <string name="scannerQRCode">Scanner QRCode </string>
+    <string name="years_of_warranty"> Years of warranty</string>
+    <string name="price">Price</string>
+
+</resources>
