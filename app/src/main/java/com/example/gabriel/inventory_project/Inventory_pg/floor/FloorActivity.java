@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.Inventory_pg.room.RoomActivity;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,10 +40,13 @@ public class FloorActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private MaterialSearchView searchView;
     private FloorAdapter floorAdapter;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_list);
+
+        history = new AddHistory();
 
         toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,6 +92,7 @@ public class FloorActivity extends AppCompatActivity {
                         Intent intent = new Intent(FloorActivity.this, ChangeFloor.class);
                         intent.putExtra("id_Office", id_Office);
                         intent.putExtra("id_Floor", floor.getId());
+                        intent.putExtra("name_Floor", floor.getName());
                         startActivity(intent);
                     }
                 });
@@ -95,6 +101,7 @@ public class FloorActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         myRef.child("Offices").child(id_Office).child("Floors").child(floor.getId())
                                 .removeValue();
+                        history.addrecord(new Record("Delete floor "+floor.getName()));
                     }
                 });
                 mBuilder.setView(mView);

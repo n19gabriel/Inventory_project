@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,14 +49,17 @@ public class ThingActivity extends AppCompatActivity {
     private FloatingActionButton Badd;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_list);
 
+        history = new AddHistory();
+
         toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Offices");
+        getSupportActionBar().setTitle("Things");
         searchView = findViewById(R.id.search_view);
 
         Intent intent = getIntent();
@@ -112,6 +117,9 @@ public class ThingActivity extends AppCompatActivity {
                         intent.putExtra("id_Floor",id_Floor);
                         intent.putExtra("id_Room",id_Room);
                         intent.putExtra("id_Thing",thing.getId());
+                        intent.putExtra("name_Thing",thing.getName());
+                        intent.putExtra("type_Thing",thing.getType());
+                        intent.putExtra("price_Thing",thing.getPrice());
                         startActivity(intent);
 
                     }
@@ -134,6 +142,7 @@ public class ThingActivity extends AppCompatActivity {
                         myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor)
                                 .child("Rooms").child(id_Room).child("Things").child(thing.getId())
                                 .removeValue();
+                        history.addrecord(new Record("Delete thing "+thing.getName()));
                     }
                 });
                 mBuilder.setView(mView);

@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +24,8 @@ public class ChangeFloor extends AppCompatActivity {
     private Button Badd;
     private String id_Office;
     private String id_Floor;
+    private String name_Floor;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,9 @@ public class ChangeFloor extends AppCompatActivity {
         Intent intent = getIntent();
         id_Office = intent.getStringExtra("id_Office");
         id_Floor = intent.getStringExtra("id_Floor");
+        name_Floor = intent.getStringExtra("name_Floor");
+
+        history = new AddHistory();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -56,6 +63,7 @@ public class ChangeFloor extends AppCompatActivity {
             myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor).child("name").setValue(name);
             Toast.makeText(this, "Name change", Toast.LENGTH_LONG).show();
             ETname.setText("");
+            history.addrecord(new Record("Refract floor: "+ name_Floor + " => "+name));
         }else{
             Toast.makeText(this, "Please enter a change", Toast.LENGTH_LONG).show();
         }

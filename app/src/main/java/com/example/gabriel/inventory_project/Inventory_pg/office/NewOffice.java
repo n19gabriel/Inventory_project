@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,10 +22,13 @@ public class NewOffice extends AppCompatActivity {
     private EditText ETname;
     private EditText ETlocation;
     private Button Badd;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_office);
+
+        history = new AddHistory();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -65,6 +70,7 @@ public class NewOffice extends AppCompatActivity {
 
             //displaying a success toast
             Toast.makeText(this, "Office added", Toast.LENGTH_LONG).show();
+            history.addrecord(new Record("Add office "+office.getName()));
         } else if(TextUtils.isEmpty(name)){
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();

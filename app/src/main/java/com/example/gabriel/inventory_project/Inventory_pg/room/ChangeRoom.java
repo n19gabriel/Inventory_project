@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +25,8 @@ public class ChangeRoom extends AppCompatActivity {
     private String id_Office;
     private String id_Floor;
     private String id_Room;
+    private String name_Room;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,9 @@ public class ChangeRoom extends AppCompatActivity {
         id_Office = intent.getStringExtra("id_Office");
         id_Floor = intent.getStringExtra("id_Floor");
         id_Room = intent.getStringExtra("id_Room");
+        name_Room = intent.getStringExtra("name_Room");
+
+        history = new AddHistory();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -57,6 +64,7 @@ public class ChangeRoom extends AppCompatActivity {
                     .child("Rooms").child(id_Room).child("name").setValue(name);
             Toast.makeText(this, "Name change", Toast.LENGTH_LONG).show();
             ETname.setText("");
+            history.addrecord(new Record("Refract room: "+ name_Room+ " => "+name));
         }else{
             Toast.makeText(this, "Please enter a change", Toast.LENGTH_LONG).show();
         }

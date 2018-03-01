@@ -1,14 +1,16 @@
 package com.example.gabriel.inventory_project.Inventory_pg.floor;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,14 +22,17 @@ public class NewFloor extends AppCompatActivity {
     private DatabaseReference myRef;
     private EditText ETname;
     private Button Badd;
-    String userId;
-    String id_Office;
+    private String userId;
+    private String id_Office;
+    private AddHistory history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_floor);
         Intent intent = getIntent();
         id_Office = intent.getStringExtra("id_Office");
+
+        history = new AddHistory();
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -66,6 +71,7 @@ public class NewFloor extends AppCompatActivity {
 
             //displaying a success toast
             Toast.makeText(this, "Floor added", Toast.LENGTH_LONG).show();
+            history.addrecord(new Record("Add floor "+floor.getName()));
         } else {
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();

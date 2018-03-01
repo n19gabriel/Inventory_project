@@ -1,13 +1,9 @@
 package com.example.gabriel.inventory_project.Inventory_pg.office;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.example.gabriel.inventory_project.Inventory_pg.floor.FloorActivity;
-import com.example.gabriel.inventory_project.R;
-import android.content.Intent;
-
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +13,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
+import com.example.gabriel.inventory_project.Inventory_pg.floor.FloorActivity;
+import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,11 +42,15 @@ public class OfficeActivity extends AppCompatActivity {
     private FloatingActionButton Badd;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
+    private AddHistory history;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.object_list);
+
+        history = new AddHistory();
 
         toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,6 +97,8 @@ public class OfficeActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(OfficeActivity.this, ChangeOffice.class);
                         intent.putExtra("id_Office", office.getId());
+                        intent.putExtra("name_Office", office.getName());
+                        intent.putExtra("location_Office", office.getLocation());
                         startActivity(intent);
                     }
                 });
@@ -100,6 +106,7 @@ public class OfficeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         myRef.child("Offices").child(office.getId()).removeValue();
+                        history.addrecord(new Record("Delete office "+office.getName()));
                     }
                 });
                 mBuilder.setView(mView);

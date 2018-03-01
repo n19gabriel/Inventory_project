@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,18 +58,26 @@ public class ChangeThing extends AppCompatActivity {
     private Uri selectedImage;
     private LinearLayout linearLayout;
     private int counter;
-    boolean flag = false;
+    private boolean flag = false;
+    private String name_Thing;
+    private String type_Thing;
+    private String price_Thing;
+    private AddHistory history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_thing);
+        history = new AddHistory();
 
         Intent intent = getIntent();
         id_Office = intent.getStringExtra("id_Office");
         id_Floor = intent.getStringExtra("id_Floor");
         id_Room = intent.getStringExtra("id_Room");
         id_Thing = intent.getStringExtra("id_Thing");
+        name_Thing = intent.getStringExtra("name_Thing");
+        type_Thing = intent.getStringExtra("type_Thing");
+        price_Thing = intent.getStringExtra("price_Thing");
 
         tx_warranty =findViewById(R.id.tx_warranty);
         linearLayout = findViewById(R.id.liner_layout_counter);
@@ -186,7 +196,6 @@ public class ChangeThing extends AppCompatActivity {
         String name = ETname.getText().toString().trim();
         String type = ETtype.getText().toString().trim();
         String price =ETprice.getText().toString().trim();
-        String date_of_delete = TVexpiration_date.getText().toString();
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
@@ -232,9 +241,38 @@ public class ChangeThing extends AppCompatActivity {
             flag=false;
         }
 
-        if(TextUtils.isEmpty(name)&&TextUtils.isEmpty(type)&&TextUtils.isEmpty(date_of_delete)&&flag==false){
+        if(TextUtils.isEmpty(name)&&TextUtils.isEmpty(type)&&TextUtils.isEmpty(price)&&flag==false){
             Toast.makeText(this, "Please enter a change", Toast.LENGTH_LONG).show();
+        }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==true){
+            history.addrecord(new Record("Refract things: "+ name_Thing + " => "+name+
+                    " and "+ type_Thing + " => " + type+ " and "+ price_Thing+ " => "+ price+" refract image"));
+        }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==false) {
+            history.addrecord(new Record("Refract things: " + name_Thing + " => " + name +
+                    " and " + type_Thing + " => " + type + " and " + price_Thing + " => " + price));
+        }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)) {
+            history.addrecord(new Record("Refract things: " + name_Thing + " => " + name +
+                    " and " + type_Thing + " => " + type));
+        }else if(!TextUtils.isEmpty(name)) {
+            history.addrecord(new Record("Refract things: " + name_Thing + " => " + name));
+        }else if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==true) {
+            history.addrecord(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
+                    + " => " + price + " refract image"));
+        }else if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)) {
+            history.addrecord(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
+                    + " => " + price ));
+        }else if(!TextUtils.isEmpty(type)) {
+            history.addrecord(new Record("Refract things: " + type_Thing + " => " + type));
+        }else if(!TextUtils.isEmpty(price)&&flag==true) {
+            history.addrecord(new Record("Refract things: " +price_Thing
+                    + " => " + price + " refract image"));
+        }else if(!TextUtils.isEmpty(price)) {
+            history.addrecord(new Record("Refract things: " +price_Thing
+                    + " => " + price));
+        }else {
+            history.addrecord(new Record("Refract things:"+
+                    " refract image"));
         }
+
         onBackPressed();
     }
 }

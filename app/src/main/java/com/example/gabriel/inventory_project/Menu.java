@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.HistoryActivity;
 import com.example.gabriel.inventory_project.Inventory_pg.office.OfficeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -17,6 +18,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     private CardView search_card;
     private CardView scanner_card;
     private CardView log_out_card;
+    private CardView history_card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +28,14 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         list_cards = findViewById(R.id.list_card);
         log_out_card = findViewById(R.id.log_out_card);
         search_card = findViewById(R.id.search_card);
-       scanner_card = findViewById(R.id.scanner_card);
+        scanner_card = findViewById(R.id.scanner_card);
+        history_card = findViewById(R.id.history_card);
 
         list_cards.setOnClickListener(this);
         search_card.setOnClickListener(this);
         log_out_card.setOnClickListener(this);
         scanner_card.setOnClickListener(this);
+        history_card.setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +49,9 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.scanner_card : intent = new Intent(Menu.this, ScannerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.history_card : intent = new Intent(Menu.this, HistoryActivity.class);
                 startActivity(intent);
                 break;
             case R.id.log_out_card : mAuth.signOut();

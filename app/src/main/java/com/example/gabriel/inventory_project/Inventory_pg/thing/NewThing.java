@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.AddHistory;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,11 +56,14 @@ public class NewThing extends AppCompatActivity {
     private Bitmap bitmap;
     private Uri selectedImage;
     private int counter;
+    private AddHistory history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_thing);
+
+        history = new AddHistory();
 
         Intent intent = getIntent();
         id_Office = intent.getStringExtra("id_Office");
@@ -200,6 +205,7 @@ public class NewThing extends AppCompatActivity {
 
             //displaying a success toast
             Toast.makeText(this, "Thing added", Toast.LENGTH_LONG).show();
+            history.addrecord(new Record("Add thing "+thing.getName()));
         }else if(TextUtils.isEmpty(name)){
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
