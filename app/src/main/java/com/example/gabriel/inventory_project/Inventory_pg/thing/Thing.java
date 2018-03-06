@@ -1,9 +1,5 @@
 package com.example.gabriel.inventory_project.Inventory_pg.thing;
 
-import android.net.Uri;
-
-import com.google.zxing.qrcode.encoder.QRCode;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +15,7 @@ public class Thing {
     private String price;
     private String date_of_add;
     private String date_of_delete;
+    private String id_image;
 
     public Thing(){
 
@@ -58,4 +55,11 @@ public class Thing {
         return date_of_delete;
     }
 
+    public String getId_image() {
+        return id_image;
+    }
+
+    public void setId_image(String id_image) {
+        this.id_image = id_image;
+    }
 }

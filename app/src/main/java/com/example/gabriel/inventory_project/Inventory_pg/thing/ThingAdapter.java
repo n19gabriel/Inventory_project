@@ -50,13 +50,17 @@ public class ThingAdapter extends ArrayAdapter<Thing> {
         ImageView imageView = listItemView.findViewById(R.id.image);
         // Check if an image is provided for this word or not
 
-        mStorageRef = FirebaseStorage.getInstance().getReference().child(currentThing.getId());
-        Glide.with(context)
-                .using(new FirebaseImageLoader())
-                .load(mStorageRef)
-                .into(imageView);
-        // Make sure the view is visible
-        imageView.setVisibility(View.VISIBLE);
+        if(currentThing.getId_image()!=null) {
+            mStorageRef = FirebaseStorage.getInstance().getReference().child(currentThing.getId_image());
+            Glide.with(context)
+                    .using(new FirebaseImageLoader())
+                    .load(mStorageRef)
+                    .into(imageView);
+            // Make sure the view is visible
+            imageView.setVisibility(View.VISIBLE);
+        }else {
+            imageView.setVisibility(View.GONE);
+        }
 
         return listItemView;
     }

@@ -14,8 +14,11 @@ import com.example.gabriel.inventory_project.Inventory_pg.thing.Thing;
 import com.example.gabriel.inventory_project.Inventory_pg.thing.ThingInfoActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.melnykov.fab.FloatingActionButton;
@@ -36,6 +39,7 @@ public class ScannerActivity extends AppCompatActivity {
     private String name_Floor;
     private String id_Room;
     private String name_Room;
+    private String id_Thing;
     private IntentResult result;
     private SearcHellper searcHellper;
     @Override
@@ -81,19 +85,56 @@ public class ScannerActivity extends AppCompatActivity {
                 Toast.makeText(ScannerActivity.this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
             }
             else{
+                getThing();
                 //Toast.makeText(ScannerActivity.this, result.getContents(), Toast.LENGTH_LONG).show();
-                searchQRCode();
+                //searchQRCode();
             }
         }
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
+    private void getThing(){
+        String[] arrayId = result.getContents().toString().split("/");
+        id_Office = arrayId[0];
+        name_Office = arrayId[1];
+        id_Floor = arrayId[2];
+        name_Floor = arrayId[3];
+        id_Room = arrayId[4];
+        name_Room = arrayId[5];
+        id_Thing = arrayId[6];
+        myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor).child("Rooms")
+                .child(id_Room).child("Things")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot thingSnapshot: dataSnapshot.getChildren()){
+                            Thing thing = thingSnapshot.getValue(Thing.class);
+                            if(id_Thing.equals(thing.getId())){
+                                Intent intent  = new Intent(ScannerActivity.this, ThingInfoActivity.class);
+                                intent.putExtra("id_Office",id_Office);
+                                intent.putExtra("name_Office", name_Office);
+                                intent.putExtra("id_Floor",id_Floor);
+                                intent.putExtra("name_Floor",name_Floor);
+                                intent.putExtra("id_Room",id_Room);
+                                intent.putExtra("name_Room",name_Room);
+                                intent.putExtra("id_Thing",thing.getId());
+                                intent.putExtra("name_Thing",thing.getName());
+                                intent.putExtra("type_Thing",thing.getType());
+                                intent.putExtra("price_Thing",thing.getPrice());
+                                intent.putExtra("date_of_add_Thing",thing.getDate_of_add());
+                                intent.putExtra("date_of_delete_Thing",thing.getDate_of_delete());
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+    }
     private void searchQRCode() {
-        while (offices == null) {
-            offices = searcHellper.getOffices();
-        }
+        offices = searcHellper.getOffices();
         Toast.makeText(ScannerActivity.this,offices.size()+" ", Toast.LENGTH_LONG).show();
         for(Office office:offices){
             Toast.makeText(ScannerActivity.this,office.getName()+" office", Toast.LENGTH_LONG).show();

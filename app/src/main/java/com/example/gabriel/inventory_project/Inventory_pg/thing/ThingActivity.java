@@ -96,6 +96,7 @@ public class ThingActivity extends AppCompatActivity {
             intent.putExtra("price_Thing",thing.getPrice());
             intent.putExtra("date_of_add_Thing",thing.getDate_of_add());
             intent.putExtra("date_of_delete_Thing",thing.getDate_of_delete());
+            intent.putExtra("id_image_Thing",thing.getId_image());
             startActivity(intent);
             }
         });
@@ -120,6 +121,7 @@ public class ThingActivity extends AppCompatActivity {
                         intent.putExtra("name_Thing",thing.getName());
                         intent.putExtra("type_Thing",thing.getType());
                         intent.putExtra("price_Thing",thing.getPrice());
+                        intent.putExtra("id_image_Thing",thing.getId_image());
                         startActivity(intent);
 
                     }
@@ -127,18 +129,20 @@ public class ThingActivity extends AppCompatActivity {
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mStorageRef = FirebaseStorage.getInstance().getReference().child(thing.getId());
-                        mStorageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                // File deleted successfully
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                //  an error occurred!
-                            }
-                        });
+                        if(thing.getId_image()!=null) {
+                            mStorageRef = FirebaseStorage.getInstance().getReference().child(thing.getId_image());
+                            mStorageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // File deleted successfully
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    //  an error occurred!
+                                }
+                            });
+                        }
                         myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor)
                                 .child("Rooms").child(id_Room).child("Things").child(thing.getId())
                                 .removeValue();

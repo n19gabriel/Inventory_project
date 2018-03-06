@@ -105,8 +105,8 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dates.clear();
-                for(DataSnapshot officeSnapshot: dataSnapshot.getChildren()){
-                    String date = officeSnapshot.getKey().toString();
+                for(DataSnapshot historySnapshot: dataSnapshot.getChildren()){
+                    String date = historySnapshot.getKey().toString();
                     dates.add(date);
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this, R.layout.support_simple_spinner_dropdown_item, dates);

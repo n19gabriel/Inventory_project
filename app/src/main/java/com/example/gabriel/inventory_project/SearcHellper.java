@@ -42,20 +42,7 @@ public class SearcHellper {
     }
 
     private void officeSearch(){
-        myRef.child("Offices").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                offices.clear();
-                for(DataSnapshot officeSnapshot: dataSnapshot.getChildren()){
-                    Office office = officeSnapshot.getValue(Office.class);
-                    offices.add(office);
-
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        myRef.child("Offices").getClass();
     }
 
     public ArrayList<Office> getOffices(){

@@ -124,13 +124,13 @@ public class NewThing extends AppCompatActivity {
         });
     }
 
-    private void uploadImage(String id){
+    private void uploadImage(String id_image){
         if(selectedImage != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = mStorageRef.child(id);
+            StorageReference ref = mStorageRef.child(id_image);
             ref.putFile(selectedImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -188,10 +188,14 @@ public class NewThing extends AppCompatActivity {
 
             //getting a unique id using push().getKey() method
             String id = myRef.push().getKey();
+            String id_image = myRef.push().getKey();
 
-            uploadImage(id);
+            uploadImage(id_image);
             //creating an Thing Object
             thing = new Thing(id, name, type, price ,expiration_date);
+            if (selectedImage!=null){
+                thing.setId_image(id_image);
+            }
             //Saving the Office
             myRef.child(userId).child("Offices").child(id_Office).child("Floors").
                     child(id_Floor).child("Rooms").child(id_Room).child("Things").child(id).setValue(thing);

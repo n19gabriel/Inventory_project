@@ -35,6 +35,7 @@ public class ThingInfoActivity extends AppCompatActivity {
     private String price_Thing;
     private String date_of_add_Thing;
     private String date_of_delete_Thing;
+    private String id_image;
 
     private ImageView image_things;
     private TextView TV_name;
@@ -74,13 +75,18 @@ public class ThingInfoActivity extends AppCompatActivity {
         price_Thing = intent.getStringExtra("price_Thing");
         date_of_add_Thing = intent.getStringExtra("date_of_add_Thing");
         date_of_delete_Thing = intent.getStringExtra("date_of_delete_Thing");
+        id_image = intent.getStringExtra("id_image_Thing");
 
         image_things = findViewById(R.id.image_things);
-        mStorageRef = FirebaseStorage.getInstance().getReference().child(id_Thing);
-        Glide.with(ThingInfoActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(mStorageRef)
-                .into(image_things);
+        if(id_image!=null) {
+            mStorageRef = FirebaseStorage.getInstance().getReference().child(id_image);
+            Glide.with(ThingInfoActivity.this)
+                    .using(new FirebaseImageLoader())
+                    .load(mStorageRef)
+                    .into(image_things);
+        }else {
+            image_things.setVisibility(View.GONE);
+        }
 
         TV_name = findViewById(R.id.TV_name);
         TV_name.setText("Name: "+name_Thing);
@@ -99,18 +105,20 @@ public class ThingInfoActivity extends AppCompatActivity {
         delete_thing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStorageRef = FirebaseStorage.getInstance().getReference().child(id_Thing);
-                mStorageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // File deleted successfully
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        //  an error occurred!
-                    }
-                });
+                if(id_image!=null) {
+                    mStorageRef = FirebaseStorage.getInstance().getReference().child(id_image);
+                    mStorageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // File deleted successfully
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            //  an error occurred!
+                        }
+                    });
+                }
                 myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor)
                         .child("Rooms").child(id_Room).child("Things").child(id_Thing)
                         .removeValue();
@@ -127,6 +135,10 @@ public class ThingInfoActivity extends AppCompatActivity {
                 intent.putExtra("id_Floor",id_Floor);
                 intent.putExtra("id_Room",id_Room);
                 intent.putExtra("id_Thing",id_Thing);
+                intent.putExtra("name_Thing",name_Thing);
+                intent.putExtra("type_Thing",type_Thing);
+                intent.putExtra("price_Thing",price_Thing);
+                intent.putExtra("id_image_Thing",id_image);
                 startActivity(intent);
             }
         });

@@ -54,6 +54,7 @@ public class ChangeThing extends AppCompatActivity {
     private String id_Floor;
     private String id_Room;
     private String id_Thing;
+    private String id_image;
     private Bitmap bitmap;
     private Uri selectedImage;
     private LinearLayout linearLayout;
@@ -78,6 +79,7 @@ public class ChangeThing extends AppCompatActivity {
         name_Thing = intent.getStringExtra("name_Thing");
         type_Thing = intent.getStringExtra("type_Thing");
         price_Thing = intent.getStringExtra("price_Thing");
+        id_image = intent.getStringExtra("id_image_Thing");
 
         tx_warranty =findViewById(R.id.tx_warranty);
         linearLayout = findViewById(R.id.liner_layout_counter);
@@ -158,14 +160,14 @@ public class ChangeThing extends AppCompatActivity {
         }
     }
 
-    private void uploadImage(String id){
+    private void uploadImage(String id_image){
         mStorageRef = FirebaseStorage.getInstance().getReference();
         if(selectedImage != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = mStorageRef.child(id);
+            StorageReference ref = mStorageRef.child(id_image);
             ref.putFile(selectedImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -225,7 +227,7 @@ public class ChangeThing extends AppCompatActivity {
             ETname.setText("");
         }
         if(flag){
-            mStorageRef = FirebaseStorage.getInstance().getReference().child(id_Thing);
+            mStorageRef = FirebaseStorage.getInstance().getReference().child(id_image);
             mStorageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -237,7 +239,12 @@ public class ChangeThing extends AppCompatActivity {
                     //  an error occurred!
                 }
             });
-            uploadImage(id_Thing);
+            id_image = myRef.push().getKey();
+            uploadImage(id_image);
+            myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor)
+                    .child("Rooms").child(id_Room).child("Things").child(id_Thing).
+                    child("id_image").setValue(id_image);
+            Toast.makeText(this, "Image change", Toast.LENGTH_LONG).show();
             flag=false;
         }
 
