@@ -28,4 +28,7 @@
     <string name="years_of_warranty"> Years of warranty</string>
     <string name="price">Price</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

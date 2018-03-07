@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.gabriel.inventory_project.History.AddHistory;
 import com.example.gabriel.inventory_project.History.Record;
+import com.example.gabriel.inventory_project.Inventory_pg.thing.Info.ThingInfoActivity;
 import com.example.gabriel.inventory_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

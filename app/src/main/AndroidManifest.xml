@@ -36,7 +36,7 @@
         <activity android:name=".Inventory_pg.thing.ChangeThing" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ScannerActivity" />
-        <activity android:name=".Inventory_pg.thing.ThingInfoActivity" />
+        <activity android:name=".Inventory_pg.thing.Info.ThingInfoActivity" />
         <activity android:name=".History.HistoryActivity" />
         <activity android:name=".History.TimeActivity"></activity>
     </application>

@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.gabriel.inventory_project.Inventory_pg.thing.Info.InfoFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/image_things"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_name"
+        android:textSize="20sp"
+        android:textColor="@color/primary_text"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_type"
+        android:textSize="20sp"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_price"
+        android:textSize="20sp"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_path"
+        android:textSize="20sp"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_date_of_add"
+        android:textSize="20sp"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <TextView
+        android:id="@+id/TV_date_of_delete"
+        android:textSize="20sp"
+        android:drawablePadding="12dp"
+        android:padding="8dp"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <Button
+            android:layout_margin="8dp"
+            android:background="@color/primary"
+            android:textColor="@color/primary_text"
+            android:id="@+id/delete_thing"
+            android:layout_width="wrap_content"
+            android:text="@string/delete"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_margin="8dp"
+            android:background="@color/primary"
+            android:textColor="@color/primary_text"
+            android:id="@+id/refract_thing"
+            android:text="@string/refract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

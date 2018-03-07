@@ -11,7 +11,7 @@ import com.example.gabriel.inventory_project.Inventory_pg.floor.Floor;
 import com.example.gabriel.inventory_project.Inventory_pg.office.Office;
 import com.example.gabriel.inventory_project.Inventory_pg.room.Room;
 import com.example.gabriel.inventory_project.Inventory_pg.thing.Thing;
-import com.example.gabriel.inventory_project.Inventory_pg.thing.ThingInfoActivity;
+import com.example.gabriel.inventory_project.Inventory_pg.thing.Info.ThingInfoActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
