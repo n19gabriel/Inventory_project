@@ -147,6 +147,7 @@ public class ThingActivity extends AppCompatActivity {
                         myRef.child("Offices").child(id_Office).child("Floors").child(id_Floor)
                                 .child("Rooms").child(id_Room).child("Things").child(thing.getId())
                                 .removeValue();
+                        myRef.child("QRCodes").child(thing.getId()).removeValue();
                         history.addrecord(new Record("Delete thing "+thing.getName()));
                     }
                 });
@@ -161,9 +162,12 @@ public class ThingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ThingActivity.this, NewThing.class);
-                intent.putExtra("id_Office", id_Office);
-                intent.putExtra("id_Floor", id_Floor);
-                intent.putExtra("id_Room", id_Room);
+                intent.putExtra("id_Office",id_Office);
+                intent.putExtra("name_Office", name_Office);
+                intent.putExtra("id_Floor",id_Floor);
+                intent.putExtra("name_Floor",name_Floor);
+                intent.putExtra("id_Room",id_Room);
+                intent.putExtra("name_Room",name_Room);
                 startActivity(intent);
             }
         });

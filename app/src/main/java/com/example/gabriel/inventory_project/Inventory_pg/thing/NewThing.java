@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.gabriel.inventory_project.History.AddHistory;
 import com.example.gabriel.inventory_project.History.Record;
+import com.example.gabriel.inventory_project.QRCode;
 import com.example.gabriel.inventory_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,13 +51,18 @@ public class NewThing extends AppCompatActivity {
     private ImageButton Bplus;
     private ImageButton Bminus;
     private String id_Office;
+    private String name_Office;
     private String id_Floor;
+    private String name_Floor;
     private String id_Room;
+    private String name_Room;
     private ImageView IVsetImage;
     private Bitmap bitmap;
     private Uri selectedImage;
     private int counter;
     private AddHistory history;
+    private String code;
+    private QRCode qrCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +73,11 @@ public class NewThing extends AppCompatActivity {
 
         Intent intent = getIntent();
         id_Office = intent.getStringExtra("id_Office");
+        name_Office = intent.getStringExtra("name_Office");
         id_Floor = intent.getStringExtra("id_Floor");
+        name_Floor = intent.getStringExtra("name_Floor");
         id_Room = intent.getStringExtra("id_Room");
+        name_Room = intent.getStringExtra("name_Room");
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -200,6 +209,12 @@ public class NewThing extends AppCompatActivity {
             myRef.child(userId).child("Offices").child(id_Office).child("Floors").
                     child(id_Floor).child("Rooms").child(id_Room).child("Things").child(id).setValue(thing);
 
+            code = id_Office+"/"+name_Office+"/"+id_Floor+"/"+name_Floor+"/"+
+                    id_Room+"/"+name_Room+"/"+thing.getId()+"/"+thing.getName()+"/"+
+                    thing.getType()+"/"+thing.getPrice()+"/"+thing.getDate_of_add()+"/"+
+                    thing.getDate_of_delete()+"/"+thing.getId_image();
+            qrCode = new QRCode(thing.getId(),code);
+            myRef.child(userId).child("QRCodes").child(qrCode.getId()).setValue(qrCode);
             //setting edittext to blank again
             ETname.setText("");
             ETtype.setText("");
@@ -210,6 +225,8 @@ public class NewThing extends AppCompatActivity {
             //displaying a success toast
             Toast.makeText(this, "Thing added", Toast.LENGTH_LONG).show();
             history.addrecord(new Record("Add thing "+thing.getName()));
+            history.addrecordThing(new Record("Add thing "+thing.getName()),
+                    id_Office,id_Floor,id_Room,id);
         }else if(TextUtils.isEmpty(name)){
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();

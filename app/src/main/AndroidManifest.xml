@@ -38,7 +38,8 @@
         <activity android:name=".ScannerActivity" />
         <activity android:name=".Inventory_pg.thing.Info.ThingInfoActivity" />
         <activity android:name=".History.HistoryActivity" />
-        <activity android:name=".History.TimeActivity"></activity>
+        <activity android:name=".History.TimeActivity" />
+        <activity android:name=".Inventory_pg.thing.Info.TimeThingActivity"></activity>
     </application>
 
 </manifest>

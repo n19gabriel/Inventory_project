@@ -6,8 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 
 import com.example.gabriel.inventory_project.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 
 public class ThingInfoActivity extends AppCompatActivity implements InfoFragment.OnFragmentInteractionListener,
@@ -26,11 +33,23 @@ HistoryFragment.OnFragmentInteractionListener{
     private String date_of_delete_Thing;
     private String id_image;
 
+    private ArrayList<String> dates;
+    private FirebaseAuth mAuth;
+    private ListView listView;
+    private DatabaseReference myRef;
+    private PagerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thing_info);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userId = user.getUid();
+        myRef = FirebaseDatabase.getInstance().getReference(userId);
+        dates = new ArrayList<String>();
 
 
         Intent intent = getIntent();
@@ -55,7 +74,7 @@ HistoryFragment.OnFragmentInteractionListener{
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),
+         adapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),
                 id_Office,name_Office,id_Floor,name_Floor,id_Room,name_Room,id_Thing,name_Thing,type_Thing,
                 price_Thing,date_of_add_Thing,date_of_delete_Thing,id_image);
         viewPager.setAdapter(adapter);
@@ -77,8 +96,6 @@ HistoryFragment.OnFragmentInteractionListener{
 
             }
         });
-
-        //((TextView)infoFragment.getView().findViewById(R.id.TV_name)).setText(name_Thing);
     }
 
     @Override

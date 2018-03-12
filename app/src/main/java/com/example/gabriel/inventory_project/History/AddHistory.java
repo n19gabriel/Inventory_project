@@ -34,4 +34,10 @@ public class AddHistory {
     public void addrecord(Record record){
         myRef.child("History").child(date).child(record.getTime()).setValue(record);
     }
+    public void addrecordThing(Record record,String id_Office, String id_Floor, String id_Room,
+    String id_Thing){
+        myRef.child("Offices").child(id_Office).child("Floors").
+                child(id_Floor).child("Rooms").child(id_Room).child("Things").child(id_Thing).
+                child("History").child(date).child(record.getTime()).setValue(record);
+    }
 }

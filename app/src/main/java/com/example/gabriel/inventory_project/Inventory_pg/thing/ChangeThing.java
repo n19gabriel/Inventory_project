@@ -253,31 +253,55 @@ public class ChangeThing extends AppCompatActivity {
         }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==true){
             history.addrecord(new Record("Refract things: "+ name_Thing + " => "+name+
                     " and "+ type_Thing + " => " + type+ " and "+ price_Thing+ " => "+ price+" refract image"));
+            history.addrecordThing(new Record("Refract things: "+ name_Thing + " => "+name+
+                    " and "+ type_Thing + " => " + type+ " and "+ price_Thing+ " => "+ price+" refract image"),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==false) {
             history.addrecord(new Record("Refract things: " + name_Thing + " => " + name +
                     " and " + type_Thing + " => " + type + " and " + price_Thing + " => " + price));
+            history.addrecordThing(new Record("Refract things: " + name_Thing + " => " + name +
+                    " and " + type_Thing + " => " + type + " and " + price_Thing + " => " + price),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(type)) {
             history.addrecord(new Record("Refract things: " + name_Thing + " => " + name +
                     " and " + type_Thing + " => " + type));
+            history.addrecordThing(new Record("Refract things: " + name_Thing + " => " + name +
+                    " and " + type_Thing + " => " + type),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(name)) {
             history.addrecord(new Record("Refract things: " + name_Thing + " => " + name));
+            history.addrecordThing(new Record("Refract things: " + name_Thing + " => " + name),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)&&flag==true) {
             history.addrecord(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
                     + " => " + price + " refract image"));
+            history.addrecordThing(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
+                    + " => " + price + " refract image"),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(price)) {
             history.addrecord(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
                     + " => " + price ));
+            history.addrecordThing(new Record("Refract things:" + type_Thing + " => " + type + " and " + price_Thing
+                    + " => " + price ),id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(type)) {
             history.addrecord(new Record("Refract things: " + type_Thing + " => " + type));
+            history.addrecordThing(new Record("Refract things: " + type_Thing + " => " + type),
+                    id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(price)&&flag==true) {
             history.addrecord(new Record("Refract things: " +price_Thing
                     + " => " + price + " refract image"));
+            history.addrecordThing(new Record("Refract things: " +price_Thing
+                    + " => " + price + " refract image"),id_Office,id_Floor,id_Room,id_Thing);
         }else if(!TextUtils.isEmpty(price)) {
             history.addrecord(new Record("Refract things: " +price_Thing
                     + " => " + price));
+            history.addrecordThing(new Record("Refract things: " +price_Thing
+                    + " => " + price),id_Office,id_Floor,id_Room,id_Thing);
         }else {
             history.addrecord(new Record("Refract things:"+
                     " refract image"));
+            history.addrecordThing(new Record("Refract things:"+
+                    " refract image"),id_Office,id_Floor,id_Room,id_Thing);
         }
 
         onBackPressed();

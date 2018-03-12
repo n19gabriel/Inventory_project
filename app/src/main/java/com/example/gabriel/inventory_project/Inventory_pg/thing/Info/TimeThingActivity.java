@@ -1,4 +1,4 @@
-package com.example.gabriel.inventory_project.History;
+package com.example.gabriel.inventory_project.Inventory_pg.thing.Info;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.gabriel.inventory_project.History.HistoryAdapter;
+import com.example.gabriel.inventory_project.History.Record;
 import com.example.gabriel.inventory_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +25,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 
-public class TimeActivity extends AppCompatActivity {
+public class TimeThingActivity extends AppCompatActivity {
     private ArrayList<String> times;
     private FirebaseAuth mAuth;
     private ListView listView;
@@ -31,6 +34,10 @@ public class TimeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private MaterialSearchView searchView;
     private String date;
+    private String id_Office;
+    private String id_Floor;
+    private String id_Room;
+    private String id_Thing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,10 @@ public class TimeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         date = intent.getStringExtra("date");
+        id_Office = intent.getStringExtra("id_Office");
+        id_Floor = intent.getStringExtra("id_Floor");
+        id_Room = intent.getStringExtra("id_Room");
+        id_Thing = intent.getStringExtra("id_Thing");
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -47,8 +58,6 @@ public class TimeActivity extends AppCompatActivity {
         toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Date");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         searchView = findViewById(R.id.search_view);
 
         times = new ArrayList<String>();
@@ -65,7 +74,7 @@ public class TimeActivity extends AppCompatActivity {
             @Override
             public void onSearchViewClosed() {
                 //If closed Search View , lstView will return default
-                HistoryAdapter adapter = new HistoryAdapter(TimeActivity.this, times);
+                HistoryAdapter adapter = new HistoryAdapter(TimeThingActivity.this, times);
                 listView.setAdapter(adapter);
             }
         });
@@ -84,7 +93,7 @@ public class TimeActivity extends AppCompatActivity {
                             time_search.add(time);
                         }
                     }
-                    HistoryAdapter adapter = new HistoryAdapter(TimeActivity.this, time_search);
+                    HistoryAdapter adapter = new HistoryAdapter(TimeThingActivity.this, time_search);
                     listView.setAdapter(adapter);
                 }
                 return false;
@@ -95,7 +104,9 @@ public class TimeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        myRef.child("History").child(date).addValueEventListener(new ValueEventListener() {
+        myRef.child("Offices").child(id_Office).child("Floors").
+                child(id_Floor).child("Rooms").child(id_Room).child("Things").child(id_Thing).
+                child("History").child(date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 times.clear();
@@ -103,8 +114,7 @@ public class TimeActivity extends AppCompatActivity {
                     Record time = recordSnapshot.getValue(Record.class);
                     times.add(time.getTime()+": "+time.getRecord());
                 }
-                HistoryAdapter adapter = new HistoryAdapter(TimeActivity.this,times);
-
+                HistoryAdapter adapter = new HistoryAdapter(TimeThingActivity.this, times);
                 listView.setAdapter(adapter);
             }
 
@@ -122,4 +132,16 @@ public class TimeActivity extends AppCompatActivity {
         searchView.setMenuItem(item);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if(id==R.id.action_settings) {
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
+

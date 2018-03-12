@@ -73,7 +73,7 @@ public class InfoFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void getItem(String id_Office,String name_Office,String id_Floor, String name_Floor,String id_Room,
+    public void setItem(String id_Office,String name_Office,String id_Floor, String name_Floor,String id_Room,
                         String name_Room,String id_Thing,String name_Thing,String type_Thing,
                         String price_Thing,String date_of_add_Thing,String date_of_delete_Thing,String id_image){
         this.id_Office = id_Office;

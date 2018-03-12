@@ -124,6 +124,7 @@ public class ScannerActivity extends AppCompatActivity {
                                 intent.putExtra("price_Thing",thing.getPrice());
                                 intent.putExtra("date_of_add_Thing",thing.getDate_of_add());
                                 intent.putExtra("date_of_delete_Thing",thing.getDate_of_delete());
+                                intent.putExtra("id_image_Thing", thing.getId_image());
                                 startActivity(intent);
                             }
                         }

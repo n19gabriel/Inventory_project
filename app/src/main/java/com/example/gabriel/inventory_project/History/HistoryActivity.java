@@ -109,7 +109,7 @@ public class HistoryActivity extends AppCompatActivity {
                     String date = historySnapshot.getKey().toString();
                     dates.add(date);
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HistoryActivity.this, R.layout.support_simple_spinner_dropdown_item, dates);
+               HistoryAdapter adapter = new HistoryAdapter(HistoryActivity.this, dates);
 
                 listView.setAdapter(adapter);
             }

@@ -26,7 +26,7 @@ public class FloorAdapter extends ArrayAdapter<Floor>{
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.list_items, parent, false);
         }
 
         Floor currentFloor = getItem(position);

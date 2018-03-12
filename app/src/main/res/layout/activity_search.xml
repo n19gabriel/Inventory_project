@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="com.example.gabriel.inventory_project.SearchActivity"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/heading_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/search_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/icons"/>
-        <ImageButton
-            android:id="@+id/search_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_search_black_48dp"
-            android:background="@color/primary"/>
-    </LinearLayout>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Firebase Search"
+        android:textColor="#555555"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/heading_label"
+        android:layout_alignLeft="@+id/heading_label"
+        android:layout_below="@+id/heading_label"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@+id/search_ib"
+        android:layout_toLeftOf="@+id/search_ib"
+        android:hint="Search here"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:textColor="#999999"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/search_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/search_edit_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/search_edit_text"
+        android:layout_marginRight="30dp"
+        android:background="@android:color/background_light"
+        app:srcCompat="@mipmap/search_button" />
+
 
     <ListView
-        android:id="@+id/list_office"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
+        android:id="@+id/result_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/list_floor"
-        android:layout_below="@id/toolbar"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_edit_text"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/list_room"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/list_things"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="50dp">
+    </ListView>
 
-</LinearLayout>
+</RelativeLayout>

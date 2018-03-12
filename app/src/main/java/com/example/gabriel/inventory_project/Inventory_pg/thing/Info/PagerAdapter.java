@@ -4,11 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by gabriel on 07.03.18.
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
+    HistoryFragment historyFragment;
     private String id_Office;
     private String name_Office;
     private String id_Floor;
@@ -22,6 +25,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     private String date_of_add_Thing;
     private String date_of_delete_Thing;
     private String id_image;
+    private ArrayList<String > dates;
 
     int mNoOfTabs;
 
@@ -46,27 +50,26 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.date_of_add_Thing= date_of_add_Thing;
         this.date_of_delete_Thing =date_of_delete_Thing;
         this.id_image =id_image;
+
+        historyFragment = new HistoryFragment();
+
     }
-
-
     @Override
     public Fragment getItem(int position) {
         switch(position)
         {
-
             case 0:
                 InfoFragment infoFragment = new InfoFragment();
-                infoFragment.getItem(id_Office,name_Office,id_Floor,name_Floor,id_Room,name_Room,id_Thing,name_Thing,type_Thing,
+                infoFragment.setItem(id_Office,name_Office,id_Floor,name_Floor,id_Room,name_Room,id_Thing,name_Thing,type_Thing,
                         price_Thing,date_of_add_Thing,date_of_delete_Thing,id_image);
                 return infoFragment;
             case 1:
-                HistoryFragment historyFragment = new HistoryFragment();
+                historyFragment.setItem(id_Office,id_Floor,id_Room,id_Thing);
                 return  historyFragment;
             default:
                 return null;
         }
     }
-
     @Override
     public int getCount() {
         return mNoOfTabs;

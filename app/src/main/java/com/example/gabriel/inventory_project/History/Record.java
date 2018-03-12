@@ -17,7 +17,7 @@ public class Record {
     public Record(String record){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         this.time = simpleDateFormat.format(calendar.getTime()).toString();
         this.record = record;
     }
